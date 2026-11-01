@@ -1,11 +1,11 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-const char* WIFI_SSID = "YOUR_WIFI_NAME";
-const char* WIFI_PASS = "YOUR_WIFI_PASS";
+const char* WIFI_SSID = "POTATO-LABTOP 1163";
+const char* WIFI_PASS = "04q051X;";
 
 const char* INFLUX_URL = "http://<AZURE_VM_IP>:8086/api/v2/write?org=my-org&bucket=sensor-data&precision=s";
-const char* INFLUX_TOKEN = "Token my-super-secret-token-1234";
+const char* INFLUX_TOKEN = "my-super-secret-token-1234";
 
 unsigned long lastTime = 0;
 
