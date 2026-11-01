@@ -1,1 +1,5 @@
-note.txt
+note.txt.env
+azure-server/.env
+azure-server/grafana-data/
+azure-server/influxdb-data/
+azure-server/nodered-data/

@@ -41,3 +41,11 @@ services:
       - "1880:1880"
     volumes:
       - ./nodered-data:/data
+  web:
+    image: php:8.2-apache
+    container_name: appserv-cloud
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
