@@ -1,0 +1,43 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb-data:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUX_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=sensor-data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUX_TOKEN}
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana-data:/var/lib/grafana
+    environment:
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=${GMAIL_ADDRESS}
+      - GF_SMTP_PASSWORD=${GMAIL_APP_PASS}
+      - GF_SMTP_FROM_ADDRESS=${GMAIL_ADDRESS}
+      - GF_SMTP_FROM_NAME=ESP32_Alert_System
+    depends_on:
+      - influxdb
+
+  nodered:
+    image: nodered/node-red:latest
+    container_name: nodered
+    restart: unless-stopped
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./nodered-data:/data
